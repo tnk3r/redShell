@@ -1,9 +1,12 @@
-import socket
+import socket, sys
 
-## User Input for Red Camera
+# Command line input for IP Address
+try:
+    address = str(sys.argv[1])
+except:
+    address = raw_input("Enter IP of RDC Camera:  ")
 
-address = raw_input("Enter IP of RDC Camera:  ")
-print "Connecting to :"+str(address)
+print "Connecting to: "+str(address)
 
 ## socket setup
 
@@ -18,22 +21,21 @@ sock.connect((str(address), 1111))
 print sock.recv(256)
 
 while True:
-    print "Command Structure:  "
-    print " #$ EXT: S or G or H : command : value : newline"
-    print "example: #$EXT:S:SENSFPS:48001:\\n"
+    print "\nexample: #$EXT:S:SENSFPS:48001:"
+    print "\nQ/q to quit.\n"
 
     ## Ask user for Red Camera Command input
 
-    command = raw_input("RCP Command:  ")
+    command = raw_input("RedShell$:  ")
 
     ## If User enters Q the program will quit.
 
-    if command == "Q":
+    if command == "Q" or command == 'q':
         break
 
     ## Send Command
 
-    sock.sendall(str(command))
+    sock.sendall(str(command)+"\n")
 
     ## Read a little Data
 
