@@ -15,7 +15,7 @@ while True:
     value = raw_input("Set Encoder Value:  ")
     if value == "loop":
         floop()
-    if value != "Q":
+    if value != "Q" or value != 'q':
         sock.sendall("#$EXT:S:HCFOCUS:"+str(int(value)*100)+":\n")
     else:
         break
